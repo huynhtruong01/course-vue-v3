@@ -1,6 +1,15 @@
-## COURSE VUEJS
+## Table of Content
 
-- [Table of content](#course-vuejs)
+1. [Install Vue](#install-vuejs--ts--vitejs)
+2. [Create a Vue Application](#create-a-vue-application)
+3. [Template Syntax](#template-syntax)
+4. [Event & Method](#events--methods)
+5. [Reactive Fundamental](#reactivity-fundamentals)
+6. [Computed properties](#computed-properties)
+7. [Class & Style Binding](#class-and-style-bindings)
+8. [Condition Rendering](#condition-rendering)
+9. [List rendering](#list-rendering)
+10. [Watches](#watches)
 
 ---
 
