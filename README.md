@@ -56,7 +56,7 @@ const app = createApp(App).mount('#app')
 
 > [https://vuejs.org/guide/essentials/application.html](https://vuejs.org/guide/essentials/application.html)
 
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -288,7 +288,7 @@ const app = createApp(App).mount('#app')
 
 > ... [more directives](https://vuejs.org/api/built-in-directives.html)
 
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -384,7 +384,7 @@ const app = createApp(App).mount('#app')
 ```
 
 > [https://vuejs.org/guide/essentials/event-handling.html](https://vuejs.org/guide/essentials/event-handling.html)
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -569,7 +569,7 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
     - **Not destructure-friendly**: when we destructure a reactive object's primitive type property into local variables, or when we pass that property into a function, we will lose the reactivity connection: (`khi chúng ta cấu trúc thuộc tính kiểu nguyên thủy của đối tượng phản ứng thành các biến cục bộ hoặc khi chúng ta chuyển thuộc tính đó vào một hàm, chúng ta sẽ mất kết nối phản ứng:`)
 
 > **_Notion_**: Due to these limitations, we recommend using `ref()` as the primary API for declaring reactive state.
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -626,7 +626,7 @@ const double = computed<number>(() => {
     ```
 
 > [https://vuejs.org/guide/essentials/computed.html](https://vuejs.org/guide/essentials/computed.html)
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -739,7 +739,7 @@ const double = computed<number>(() => {
 ```
 
 > [https://vuejs.org/guide/essentials/class-and-style.html](https://vuejs.org/guide/essentials/class-and-style.html)
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -749,7 +749,7 @@ const double = computed<number>(() => {
 > Because `v-if` has higher toggle costs while `v-show` has higher initial render costs. (`v-if có chi phí chuyển đổi cao hơn trong khi v-show có chi phí hiển thị ban đầu cao hơn. Hay nói cách là v-if ảnh hưởng đến vấn đề hiệu suất hơn v-show`)
 
 > [https://vuejs.org/guide/essentials/conditional.html](https://vuejs.org/guide/essentials/conditional.html)
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -834,7 +834,7 @@ const double = computed<number>(() => {
 ```
 
 > [https://vuejs.org/guide/essentials/list.html](https://vuejs.org/guide/essentials/list.html)
-[⬆️ Back to top](#course-vuejs)
+[⬆️ Back to top](#table-of-content)
 
 ---
 
