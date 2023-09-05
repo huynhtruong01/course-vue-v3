@@ -10,6 +10,7 @@
 8. [Condition Rendering](#condition-rendering)
 9. [List rendering](#list-rendering)
 10. [Watches](#watches)
+11. [Template Refs](#template-refs)
 
 ---
 
@@ -917,7 +918,7 @@ watchEffect(async () => {
 ```
 
 > [https://vuejs.org/guide/essentials/watchers.html](https://vuejs.org/guide/essentials/watchers.html)
-[⬆️ Back to top](#table-of-content)
+> [⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -951,8 +952,8 @@ watchEffect(async () => {
 </template>
 ```
 
-[https://vuejs.org/guide/essentials/template-refs.html](https://vuejs.org/guide/essentials/template-refs.html)
-[⬆️ Back to top](#table-of-content)
+> [https://vuejs.org/guide/essentials/template-refs.html](https://vuejs.org/guide/essentials/template-refs.html)
+> [⬆️ Back to top](#table-of-content)
 
 ---
 
