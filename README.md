@@ -858,4 +858,113 @@ const double = computed<number>(() => {
 </template>
 ```
 
+- **Watch Source Types**: `watch's` first argument can be different types of reactive "sources": it can be a `ref` (including computed refs), `a reactive object`, `a getter function`, or `an array of multiple sources`:
+
+```vue
+<script>
+    import { ref, reactive } from 'vue'
+    const x = ref(0)
+    const y = ref(0)
+    const obj = reactive({ count: 0 })
+
+    // single ref
+    watch(x, (newX) => {
+        console.log(`x is ${newX}`)
+    })
+
+    // getter
+    watch(
+        () => x.value + y.value,
+        (sum) => {
+            console.log(`sum of x + y is: ${sum}`)
+        }
+    )
+
+    // array of multiple sources
+    watch([x, () => y.value], ([newX, newY]) => {
+        console.log(`x is ${newX} and y is ${newY}`)
+    })
+
+    // it doesn't work because we passing a number to watch() ❌❌❌ 
+    watch(obj.count, (count) => {
+        console.log(`count is: ${count}`)
+    })
+
+    // instead, use a getter ✅✅✅
+    watch(
+        () => obj.count,
+        (count) => {
+            console.log(`count is: ${count}`)
+        }
+    )
+</script>
+```
+
+- **watchEffect**: We want to it run once time and allow us to track the callback's reactive dependencies automatically. It means it can automatically detect reactive dependencies used inside callback and executes that function whenever any of those dependencies change. You don't need to specify the data to watch explicitly; it captures dependencies dynamically. (`Chúng tôi muốn nó chạy một lần và cho phép chúng tôi tự động theo dõi các phần phụ thuộc phản ứng của lệnh gọi lại. Điều đó có nghĩa là nó có thể tự động phát hiện các phần phụ thuộc phản ứng được sử dụng bên trong hàm gọi lại và thực thi chức năng đó bất cứ khi nào có bất kỳ phần phụ thuộc nào trong số đó thay đổi. Bạn không cần chỉ định rõ ràng dữ liệu cần xem; nó nắm bắt các phụ thuộc một cách linh hoạt.`)
+
+- **The different between `watch` and `watchEffect`**:
+    - `watch` only tracks the explicitly watched source. It won't track anything accessed inside the callback. In addition, the callback only triggers when the source has actually changed. watch separates dependency tracking from the side effect, giving us more precise control over when the callback should fire. (`watch chỉ theo dõi source watch cụ thể. Nó sẽ không theo dõi bất cứ thứ gì truy cập bên trong callback. Thêm vào đó, callback chỉ trigger when source thưc sự thay đổi, warth tách biệt track từ side effect, cho chúng ta kiểm soát chính xác thời điểm callback sẽ kích hoạt`)
+
+    - `watchEffect`, on the other hand, combines dependency tracking and side effect into one phase. It automatically tracks every reactive property accessed during its synchronous execution. This is more convenient and typically results in terser code, but makes its reactive dependencies less explicit. (`Mặt khác, tổng hợp dependency đã theo dõi và side effect trong 1 giai đoạn, Nó sẽ tự động theo dõi mọi reactive đã truy cập thực thi đồng bộ của nó. Điều này thuận tiện và dẫn đến kết quả code ngắn hơn, nhưng make its ít rõ ràng hơn`)
+
+```ts
+watchEffect(async () => {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${todoId.value}`
+  )
+  data.value = await response.json()
+})
+```
+
 > [https://vuejs.org/guide/essentials/watchers.html](https://vuejs.org/guide/essentials/watchers.html)
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### TEMPLATE REFS
+
+- We want to access to the underlying DOM elements. To achive this, you can use `ref`
+
+```vue
+<script setup>
+    import { ref } from 'vue'
+    const inputRef = ref(null)
+</script>
+<template>
+    <input type='text' ref='input' />
+</template>
+```
+
+- We can ref dynamic by you can use `:ref`
+
+- We can use ref to component
+
+```vue
+<script>
+    import { ref } from 'vue'
+    const childRef = ref(null)
+</script>
+<template>
+    <div>
+        <Child ref="childRef" />
+    </div>
+</template>
+```
+
+[https://vuejs.org/guide/essentials/template-refs.html](https://vuejs.org/guide/essentials/template-refs.html)
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### LICYCLE HOOKS
+
+---
+
+### REGISTRATION COMPONENT
+
+
+
+---
+
+### PROPS
+

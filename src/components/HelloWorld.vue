@@ -15,7 +15,7 @@ export default {
       errUsername: '',
       errPassword: '',
       success: 'Login successfully',
-      isSubmit: false
+      isSubmit: false,
     }
   },
   setup() {
@@ -41,6 +41,10 @@ export default {
         this.errUsername = 'Password is required'
       }
 
+    },
+    count(newValue: number, oldValue: number) {
+      console.log('new value:', newValue)
+      console.log('old value:', oldValue)
     }
   },
   methods: {
@@ -106,15 +110,6 @@ export default {
         <button class="px-4 py-2 text-white bg-blue-500 rounded" @click="increase">+</button>
       </div>
     </div>
-
-    <!-- list nums -->
-    <ul class="mt-4 flex flex-wrap gap-2">
-      <li v-for="num in listNums">{{ num }}</li>
-    </ul>
-    <button class="px-4 py-2 text-white bg-green-500 rounded mt-2" @click="addNumbs">+ Add</button>
-
-    <!-- reactive -->
-    <div :style="[activeStyle]">{{ state.num }}</div>
   </div>
 </template>
 
