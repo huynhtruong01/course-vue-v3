@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Container from './components/Container.vue';
+import Header from './components/Header.vue'
 </script>
 
 <template>
-  <HelloWorld msg="Vite + Vue" />
+  <Header></Header>
+  <main class="mt-20">
+    <Container>
+      <router-view></router-view>
+    </Container>
+  </main>
 </template>
 
 

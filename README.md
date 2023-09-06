@@ -12,6 +12,13 @@
 10. [Watches](#watches)
 11. [Template Refs](#template-refs)
 
+12. [Registration component](#registration-component)
+13. [Props](#props)
+13. [Emitting & Listening to Events](#emitting--listening-to-events)
+14. [Deep Understand v-model](#deep-understand-about-v-model)
+15. [Router](#router)
+16. [Slots](#slots)
+
 ---
 
 ### INSTALL VUEJS + TS + VITEJS
@@ -385,13 +392,14 @@ const app = createApp(App).mount('#app')
 ```
 
 > [https://vuejs.org/guide/essentials/event-handling.html](https://vuejs.org/guide/essentials/event-handling.html)
+
 [⬆️ Back to top](#table-of-content)
 
 ---
 
 ### REACTIVITY FUNDAMENTALS
 
-1. **Declare Reactivity State  _ref()_**
+1. **Reactivity State  _ref()_**
 
 - `ref()`: Recommend declare reactive state is using the `ref()` function
 
@@ -523,7 +531,7 @@ const app = createApp(App).mount('#app')
 </template>
 ```
 
-2. **Declare Reactivity State  _reactive()_**
+2. **Reactivity State  _reactive()_**
 
 - There is another way to declare reactive state, with the `reactive()` API. Unlike a `ref` which wraps the inner value in a special object, `reactive()` makes an object itself reactive: (`Đây là một cách khác để khai báo reactive state. Không giống như ref, reactive() bao bọc các giá trị bên trong trong một object đặc biệt`)
 
@@ -569,7 +577,18 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
 
     - **Not destructure-friendly**: when we destructure a reactive object's primitive type property into local variables, or when we pass that property into a function, we will lose the reactivity connection: (`khi chúng ta cấu trúc thuộc tính kiểu nguyên thủy của đối tượng phản ứng thành các biến cục bộ hoặc khi chúng ta chuyển thuộc tính đó vào một hàm, chúng ta sẽ mất kết nối phản ứng:`)
 
+3. **The different between _ref_ and _reactive_**
+
+|       |**_ref_**|**_reactive_**|
+|-------|---------|--------------|
+| Usage | Declare the reactive state for primitives and object | Only declare the reactive state object |
+| Initialization | Can be initialized with any JS primitives and object | Only can be initialized object|
+| Access | Accessed by `.value` | Access direct into object |
+| Nested objects | Nested objects are also wrapped with `ref` when accessed | Nested objects are not wrapped with `reactive` when accessed |
+| Use cases | Used to track the state of a `single` variable or `object` | Used to track the state of an object with `nested properties` |
+
 > **_Notion_**: Due to these limitations, we recommend using `ref()` as the primary API for declaring reactive state.
+
 [⬆️ Back to top](#table-of-content)
 
 ---
@@ -627,6 +646,7 @@ const double = computed<number>(() => {
     ```
 
 > [https://vuejs.org/guide/essentials/computed.html](https://vuejs.org/guide/essentials/computed.html)
+
 [⬆️ Back to top](#table-of-content)
 
 ---
@@ -740,6 +760,7 @@ const double = computed<number>(() => {
 ```
 
 > [https://vuejs.org/guide/essentials/class-and-style.html](https://vuejs.org/guide/essentials/class-and-style.html)
+
 [⬆️ Back to top](#table-of-content)
 
 ---
@@ -750,6 +771,7 @@ const double = computed<number>(() => {
 > Because `v-if` has higher toggle costs while `v-show` has higher initial render costs. (`v-if có chi phí chuyển đổi cao hơn trong khi v-show có chi phí hiển thị ban đầu cao hơn. Hay nói cách là v-if ảnh hưởng đến vấn đề hiệu suất hơn v-show`)
 
 > [https://vuejs.org/guide/essentials/conditional.html](https://vuejs.org/guide/essentials/conditional.html)
+
 [⬆️ Back to top](#table-of-content)
 
 ---
@@ -835,6 +857,7 @@ const double = computed<number>(() => {
 ```
 
 > [https://vuejs.org/guide/essentials/list.html](https://vuejs.org/guide/essentials/list.html)
+
 [⬆️ Back to top](#table-of-content)
 
 ---
@@ -918,7 +941,8 @@ watchEffect(async () => {
 ```
 
 > [https://vuejs.org/guide/essentials/watchers.html](https://vuejs.org/guide/essentials/watchers.html)
-> [⬆️ Back to top](#table-of-content)
+
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -953,7 +977,8 @@ watchEffect(async () => {
 ```
 
 > [https://vuejs.org/guide/essentials/template-refs.html](https://vuejs.org/guide/essentials/template-refs.html)
-> [⬆️ Back to top](#table-of-content)
+
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -963,9 +988,424 @@ watchEffect(async () => {
 
 ### REGISTRATION COMPONENT
 
+1. **Global Registration**
 
+- We can make components available globally in the current Vue application using the app.component() method:
+
+```ts
+import { createApp } from 'vue'
+
+const app = createApp({})
+
+app.component(
+  // the registered name
+  'MyComponent',
+  // the implementation
+  {
+    /* ... */
+  }
+)
+```
+
+2. **Local Registration**
+
+- It is for `SFC`
+
+```vue
+<script setup>
+    import ComponentA from './ComponentA'
+</script>
+<template>
+    <ComponentA />
+</template>
+```
+
+3. **Component Name Casing**
+
+- Using `PascalCase` because:
+
+    - It is easier to import and register components in JS. It also helps IDEs with auto-completion. (`Nó rất dễ dàng để import và đăng ký component trong JS. Nó cũng giúp cho IDE tự động hoàn thành`)
+    - <PascalCase /> makes it more obvious that this is a Vue component instead of a native HTML element in templates. It also differentiates Vue components from custom elements (web components).
+    (`PascalCase làm cho nó trở nên rõ ràng hơn thay vì sử dụng native HTML element. Nó cũng tạo ra sự khác biệt với Vue component`)
+
+> [https://vuejs.org/guide/components/registration.html](https://vuejs.org/guide/components/registration.html)
+
+[⬆️ Back to top](#table-of-content)
 
 ---
 
 ### PROPS
 
+1. **With SFC**
+
+```vue
+<script setup lang='ts'>
+    import { defineProps } from 'vue'
+    const props = defineProps(['text'])
+    // or we can use spread operator
+    const { text } = defineProps(['text'])
+</script>
+<template>
+    <div>{{ props.text }}</div>
+</template>    
+```
+
+2. **Non SFC**
+
+```vue
+<script>
+    export default {
+        props: ['text'],
+        setup(props) {
+            console.log(props)
+            return {}
+        }
+    }
+</script>
+```
+
+3. **Static & Dynamic Props**
+
+- Static Props:
+
+```vue
+<template>
+    <BlogPost title="My journey with Vue" />
+</template>
+```
+
+- Dynamic Props: We can dynamic number, string, boolean, array, object,... . You can add multiple
+
+```vue
+<template>
+    <Blog :title="post.title" :id="post.id" />
+</template>
+```
+
+4. **One-Way data flow**
+
+- When parent property updates, it will flow down to the child, but it can't otherwise. (`Khi thuộc tính cha mẹ cập nhật, nó sẽ chuyển xuống con, nhưng không thể làm khác được.`)
+- In addition, every time the parent component is updated, all props in the child component will be refreshed with the latest value. (`Ngoài ra, mỗi khi thành phần cha được cập nhật, tất cả các props trong thành phần con sẽ được làm mới với giá trị mới nhất.`)
+
+```vue
+<script>
+    import { defineProps } from 'vue'
+    const props = defineProps(['foo'])
+
+    // ❌ warning, props are readonly!
+    props.foo = 'bar'
+</script>
+```
+
+- But we can use this way:
+    - The prop is used to pass in an initial value; the child component wants to use it as a local data property afterwards. (`Prop được sử dụng để truyền vào một giá trị ban đầu; thành phần con muốn sử dụng nó làm thuộc tính dữ liệu cục bộ sau đó.`)
+
+    ```vue
+    <script setup>
+    const props = defineProps(['initialCounter'])
+
+    // counter only uses props.initialCounter as the initial value;
+    // it is disconnected from future prop updates.
+    const counter = ref(props.initialCounter)
+    </script>
+    ```
+    - The prop is passed in as a raw value that needs to be transformed.
+
+    ```vue
+    <script setup>
+        const props = defineProps(['size'])
+
+        // computed property that auto-updates when the prop changes
+        const normalizedSize = computed(() => props.size.trim().toLowerCase())
+    </script>
+    ```
+
+> [https://vuejs.org/guide/components/props.html](https://vuejs.org/guide/components/props.html)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### EMITTING & LISTENING TO EVENTS
+
+1. **Emit & Listening to Events**
+
+```vue
+<!-- child component -->
+<template>
+    <button @click="$emit('customEmit')">Emit</button>
+</template>
+
+<!-- parent component -->
+<script setup>
+    function handleCustomEvent() {
+        console.log('emit event')
+    }
+</script>
+<template>
+    <ChildComponent @custom-emit="handleCustomEvent" /> 
+    <!-- it's working ✅ -->
+</template>
+
+<!-- OR we can add modifier event listeners -->
+<template>
+    <ChildComponent @custom-emit.once="handleCustomEvent" />
+</template>
+```
+
+2. **Event Arguments**
+
+```vue
+<!-- child component -->
+<template>
+    <button @click="$emit('customEmit', 2, 3)">Emit</button>
+</template>
+
+<!-- parent component -->
+<script setup lang='ts'>
+    import { ref } from 'vue'
+    const count = ref(0)
+
+    function handleEmitEvent(num1: number, num2: number) {
+        console.log(num1, num2)
+        count.value += num1
+        count.value += num2
+    }
+</script>
+<template>
+    <ChildComponent @custom-emit="handleEmitEvent" />
+    <div>{{ count }}</div>
+</template>
+```
+
+3. **Declaring Emitted Events**
+
+- The `$emit` method that we used in the <template> isn't accessible within the <script setup> section of a component, but `defineEmits()` returns an equivalent function that we can use instead:
+
+```vue
+<script setup>
+    const emit = defineEmits(['inFocus', 'submit'])
+
+    function buttonClick() {
+    emit('submit')
+    }
+</script>
+```
+
+> [https://vuejs.org/guide/components/events.html](https://vuejs.org/guide/components/events.html)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### DEEP UNDERSTAND ABOUT V-MODEL
+
+1. **Reuseable Input Component**
+
+- We can use `emit` with `value` from parent component
+
+```vue
+<!-- child input component -->
+<script setup lang='ts'>
+    import { defineProps, defineEmits } from 'vue'
+    const props = defineProps<{
+        modelValue: string
+    }>()
+    defineEmits(['update:modelValue'])
+</script>
+<template>
+    <div>
+        <input type='text' :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+    </div>
+</template>
+
+<!-- parent component -->
+<script setup lang='ts'>
+    import { ref } from 'vue'
+    const inputValue = ref('')
+</script>
+<template>
+    <InputField v-model="inputValue" />
+</template>
+```
+
+> **_Note_**: Must be use `modelValue` according to `vue's principles`
+
+2. **v-model arguments**
+
+- By default, `v-model` on a component uses `modelValue` as the prop and `update:modelValue` as the event. We can modify these names passing an argument to v-model: (`Theo mặc định, v-model trên một thành phần sử dụng modelValue làm chỗ dựa và update:modelValue làm sự kiện. Chúng ta có thể sửa đổi những tên này bằng cách chuyển đối số sang v-model:`)
+
+```vue
+<!-- child component -->
+<script setup lang='ts'>
+defineProps(['title'])
+defineEmits(['update:title'])
+</script>
+
+<template>
+  <input
+    type="text"
+    :value="title"
+    @input="$emit('update:title', $event.target.value)"
+  />
+</template>
+
+<!-- parent component -->
+<script setup lang='ts'>
+    import { ref } from 'vue'
+    const title = ref('')
+</script>  
+<template>
+    <MyComponent v-model:title="title" />
+</template>
+```
+
+3. **Multiple Binding**
+
+```vue
+<UserName
+  v-model:first-name="first"
+  v-model:last-name="last"
+/>
+```
+
+```vue
+<script setup>
+defineProps({
+  firstName: String,
+  lastName: String
+})
+
+defineEmits(['update:firstName', 'update:lastName'])
+</script>
+
+<template>
+  <input
+    type="text"
+    :value="firstName"
+    @input="$emit('update:firstName', $event.target.value)"
+  />
+  <input
+    type="text"
+    :value="lastName"
+    @input="$emit('update:lastName', $event.target.value)"
+  />
+</template>
+```
+
+> [https://vuejs.org/guide/components/v-model.html](https://vuejs.org/guide/components/v-model.html)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### ROUTER
+
+1. **Install vue-router**
+
+```sh
+yarn add vue-router
+# 
+npm install vue-router
+```
+
+2. **Setup router**
+
+- Create `router.ts` file
+
+- Then, we can set it
+
+```ts
+import { ContactPage, ProjectsPage, AboutPage, HomePage } from './page'
+import { createRouter, createWebHistory } from 'vue-router'
+
+const routes = [
+    {
+        path: '/',
+        name: 'Home',
+        component: HomePage,
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: AboutPage,
+    },
+    {
+        path: '/projects',
+        name: 'Projects',
+        component: ProjectsPage,
+    },
+    {
+        path: '/contact',
+        name: 'Contact',
+        component: ContactPage,
+    },
+]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+})
+
+export default router
+```
+
+- Then, we can import it in `main.ts`
+
+```ts
+...
+import { router } from './router'
+
+const app = createApp(App)
+app.use(router).mount('#app')
+```
+
+3. **Setup router-link & router-view**
+
+- `Header.vue`
+
+```vue
+<template>
+    <div>
+        <ul>
+            <li>
+                <router-link to="/about">About</router-link>
+            </li>  
+            <li>
+                <router-link to="/contact">Contact</router-link>
+            </li>  
+        </ul>
+    </div> 
+</template>
+```
+
+- `App.vue`
+
+```vue
+<main>
+    <router-view></router-view>
+</main>
+```
+
+> [https://router.vuejs.org/guide/](https://router.vuejs.org/guide/)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### SLOTS
+
+- In the some case, we may want to use pass a template fragment to a child component, and let the child component render the fragment within its own template. (`Trong một số trường hợp, chúng ta có thể muốn chuyển một đoạn mẫu cho một thành phần con và để thành phần con đó hiển thị đoạn đó trong mẫu của chính nó.`)
+
+```vue
+<Button>
+    Click me
+</Button>
+
+<-- you can code like this to work --!>
+<button>
+    <slot></slot> <!-- slot outlet -->
+</button>
+```
+
+![Slot component for children](./public/images/slots.png)
