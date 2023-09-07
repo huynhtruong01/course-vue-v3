@@ -1,23 +1,23 @@
 ## Table of Content
 
-1. [Install Vue](#install-vuejs--ts--vitejs)
-2. [Create a Vue Application](#create-a-vue-application)
-3. [Template Syntax](#template-syntax)
-4. [Event & Method](#events--methods)
-5. [Reactive Fundamental](#reactivity-fundamentals)
-6. [Computed properties](#computed-properties)
-7. [Class & Style Binding](#class-and-style-bindings)
-8. [Condition Rendering](#condition-rendering)
-9. [List rendering](#list-rendering)
-10. [Watches](#watches)
-11. [Template Refs](#template-refs)
-
-12. [Registration component](#registration-component)
-13. [Props](#props)
-13. [Emitting & Listening to Events](#emitting--listening-to-events)
-14. [Deep Understand v-model](#deep-understand-about-v-model)
-15. [Router](#router)
-16. [Slots](#slots)
+- [Table of Content](#table-of-content)
+  - [INSTALL VUEJS + TS + VITEJS](#install-vuejs--ts--vitejs)
+  - [CREATE A VUE APPLICATION](#create-a-vue-application)
+  - [TEMPLATE SYNTAX](#template-syntax)
+  - [EVENTS \& METHODS](#events--methods)
+  - [REACTIVITY FUNDAMENTALS](#reactivity-fundamentals)
+  - [COMPUTED PROPERTIES](#computed-properties)
+  - [CLASS AND STYLE BINDINGS](#class-and-style-bindings)
+  - [CONDITION RENDERING](#condition-rendering)
+  - [LIST RENDERING](#list-rendering)
+  - [WATCHES](#watches)
+  - [TEMPLATE REFS](#template-refs)
+  - [LICYCLE HOOKS](#licycle-hooks)
+  - [REGISTRATION COMPONENT](#registration-component)
+  - [PROPS](#props)
+  - [EMITTING \& LISTENING TO EVENTS](#emitting--listening-to-events)
+  - [DEEP UNDERSTAND ABOUT V-MODEL](#deep-understand-about-v-model)
+  - [SLOTS](#slots)
 
 ---
 
@@ -27,6 +27,12 @@
 npm create vite my-app --template vue-ts
 ############### or ################
 yarn create vite my-app --template vue-ts
+```
+
+- Install `devtool vue`
+
+```sh
+search vue devtools -> install it
 ```
 
 ---
@@ -579,13 +585,13 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
 
 3. **The different between _ref_ and _reactive_**
 
-|       |**_ref_**|**_reactive_**|
-|-------|---------|--------------|
-| Usage | Declare the reactive state for primitives and object | Only declare the reactive state object |
-| Initialization | Can be initialized with any JS primitives and object | Only can be initialized object|
-| Access | Accessed by `.value` | Access direct into object |
-| Nested objects | Nested objects are also wrapped with `ref` when accessed | Nested objects are not wrapped with `reactive` when accessed |
-| Use cases | Used to track the state of a `single` variable or `object` | Used to track the state of an object with `nested properties` |
+|                | **_ref_**                                                  | **_reactive_**                                                |
+| -------------- | ---------------------------------------------------------- | ------------------------------------------------------------- |
+| Usage          | Declare the reactive state for primitives and object       | Only declare the reactive state object                        |
+| Initialization | Can be initialized with any JS primitives and object       | Only can be initialized object                                |
+| Access         | Accessed by `.value`                                       | Access direct into object                                     |
+| Nested objects | Nested objects are also wrapped with `ref` when accessed   | Nested objects are not wrapped with `reactive` when accessed  |
+| Use cases      | Used to track the state of a `single` variable or `object` | Used to track the state of an object with `nested properties` |
 
 > **_Notion_**: Due to these limitations, we recommend using `ref()` as the primary API for declaring reactive state.
 
@@ -1269,6 +1275,8 @@ defineEmits(['update:title'])
 />
 ```
 
+- Then,...
+
 ```vue
 <script setup>
 defineProps({
@@ -1294,100 +1302,6 @@ defineEmits(['update:firstName', 'update:lastName'])
 ```
 
 > [https://vuejs.org/guide/components/v-model.html](https://vuejs.org/guide/components/v-model.html)
-
-[⬆️ Back to top](#table-of-content)
-
----
-
-### ROUTER
-
-1. **Install vue-router**
-
-```sh
-yarn add vue-router
-# 
-npm install vue-router
-```
-
-2. **Setup router**
-
-- Create `router.ts` file
-
-- Then, we can set it
-
-```ts
-import { ContactPage, ProjectsPage, AboutPage, HomePage } from './page'
-import { createRouter, createWebHistory } from 'vue-router'
-
-const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: HomePage,
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: AboutPage,
-    },
-    {
-        path: '/projects',
-        name: 'Projects',
-        component: ProjectsPage,
-    },
-    {
-        path: '/contact',
-        name: 'Contact',
-        component: ContactPage,
-    },
-]
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes,
-})
-
-export default router
-```
-
-- Then, we can import it in `main.ts`
-
-```ts
-...
-import { router } from './router'
-
-const app = createApp(App)
-app.use(router).mount('#app')
-```
-
-3. **Setup router-link & router-view**
-
-- `Header.vue`
-
-```vue
-<template>
-    <div>
-        <ul>
-            <li>
-                <router-link to="/about">About</router-link>
-            </li>  
-            <li>
-                <router-link to="/contact">Contact</router-link>
-            </li>  
-        </ul>
-    </div> 
-</template>
-```
-
-- `App.vue`
-
-```vue
-<main>
-    <router-view></router-view>
-</main>
-```
-
-> [https://router.vuejs.org/guide/](https://router.vuejs.org/guide/)
 
 [⬆️ Back to top](#table-of-content)
 

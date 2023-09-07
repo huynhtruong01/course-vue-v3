@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+li > .router-link-active {
+    @apply before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-0.5 before:bg-green-500 before:rounded;
+}

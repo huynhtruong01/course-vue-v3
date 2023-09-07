@@ -1,27 +1,42 @@
-import { ContactPage, ProjectsPage, AboutPage, HomePage } from './page'
 import { createRouter, createWebHistory } from 'vue-router'
+import { HomePage, NotFound } from './page'
 
 const routes = [
     {
         path: '/',
-        name: 'Home',
+        name: 'home',
         component: HomePage,
     },
     {
         path: '/about',
-        name: 'About',
-        component: AboutPage,
+        name: 'about',
+        component: () => import('./page/AboutPage.vue'),
     },
     {
         path: '/projects',
-        name: 'Projects',
-        component: ProjectsPage,
+        name: 'projects',
+        component: () => import('./page/ProjectsPage.vue'),
     },
     {
         path: '/contact',
-        name: 'Contact',
-        component: ContactPage,
+        name: 'contact',
+        component: () => import('./page/ContactPage.vue'),
     },
+    {
+        path: '/posts',
+        children: [
+            {
+                path: '',
+                name: 'posts',
+                component: () => import('./page/Posts.vue'),
+            },
+            {
+                path: ':postId',
+                component: () => import('./page/PostDetail.vue'),
+            },
+        ],
+    },
+    { path: '/:pathMatch(.*)*', name: 'not.found', component: NotFound },
 ]
 
 const router = createRouter({
