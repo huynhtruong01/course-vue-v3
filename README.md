@@ -35,6 +35,8 @@ yarn create vite my-app --template vue-ts
 search vue devtools -> install it
 ```
 
+[⬆️ Back to top](#table-of-content)
+
 ---
 
 ### CREATE A VUE APPLICATION
