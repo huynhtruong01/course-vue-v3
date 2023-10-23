@@ -594,8 +594,12 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
 | Access         | Accessed by `.value`                                       | Access direct into object                                     |
 | Nested objects | Nested objects are also wrapped with `ref` when accessed   | Nested objects are not wrapped with `reactive` when accessed  |
 | Use cases      | Used to track the state of a `single` variable or `object` | Used to track the state of an object with `nested properties` |
+| Reassigning data | Can access and update data (reassigned) | Can't reassigned new data |
+| Type | Ref<T> | Initial object (Interface) |
+| Watch | With primitives, watch can determines `.value` when this ref changed, but it isn't change with deep object and must be use `deep: true` in watch | `watch()` always perform a deep watch even we don't need to use `deep: true` |
 
 > **_Notion_**: Due to these limitations, we recommend using `ref()` as the primary API for declaring reactive state.
+> [https://dmitripavlutin.com/ref-reactive-differences-vue](https://dmitripavlutin.com/ref-reactive-differences-vue)
 
 [⬆️ Back to top](#table-of-content)
 
