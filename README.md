@@ -1,23 +1,24 @@
 ## Table of Content
 
 - [Table of Content](#table-of-content)
-  - [INSTALL VUEJS + TS + VITEJS](#install-vuejs--ts--vitejs)
-  - [CREATE A VUE APPLICATION](#create-a-vue-application)
-  - [TEMPLATE SYNTAX](#template-syntax)
-  - [EVENTS \& METHODS](#events--methods)
-  - [REACTIVITY FUNDAMENTALS](#reactivity-fundamentals)
-  - [COMPUTED PROPERTIES](#computed-properties)
-  - [CLASS AND STYLE BINDINGS](#class-and-style-bindings)
-  - [CONDITION RENDERING](#condition-rendering)
-  - [LIST RENDERING](#list-rendering)
-  - [WATCHES](#watches)
-  - [TEMPLATE REFS](#template-refs)
-  - [LICYCLE HOOKS](#licycle-hooks)
-  - [REGISTRATION COMPONENT](#registration-component)
-  - [PROPS](#props)
-  - [EMITTING \& LISTENING TO EVENTS](#emitting--listening-to-events)
-  - [DEEP UNDERSTAND ABOUT V-MODEL](#deep-understand-about-v-model)
-  - [SLOTS](#slots)
+  - [Install Vue + TS + Vite](#install-vuejs--ts--vitejs)
+  - [Create a Vue application](#create-a-vue-application)
+  - [Template syntax](#template-syntax)
+  - [Event & Methods](#events--methods)
+  - [Reactivity Fuldamental](#reactivity-fundamentals)
+  - [Computed properties](#computed-properties)
+  - [Class & Style binding](#class-and-style-bindings)
+  - [Condition rerendering](#condition-rendering)
+  - [List reredering](#list-rendering)
+  - [Watches](#watches)
+  - [Template Refs](#template-refs)
+  - [Licycle Hooks](#licycle-hooks)
+  - [Registration Component](#registration-component)
+  - [Props](#props)
+  - [Emitting & Listening to events](#emitting--listening-to-events)
+  - [Deep understand v-model](#deep-understand-about-v-model)
+  - [Slots](#slots)
+  - [Provide & Inject](#provide--inject)
 
 ---
 
@@ -1455,7 +1456,7 @@ defineEmits(['update:firstName', 'update:lastName'])
 
 ---
 
-### Provide/ Inject
+### Provide & Inject
 
 1. `Provide`
 
@@ -1511,5 +1512,36 @@ provide('count', readonly(count))
 ```
 
 > [https://vuejs.org/guide/components/provide-inject.html](https://vuejs.org/guide/components/provide-inject.html)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### Composables
+
+1. `What is the composables`
+
+- When building frontend applications, we often need to reuse logic for common tasks. For example, we may need to format dates in many places, so we extract a reusable function for that. This formatter function encapsulates stateless logic: it takes some input and immediately returns expected output. There are many libraries out there for reusing stateless logic - for example lodash and date-fns, which you may have heard of.
+- It helps you can `reuse logic`, it looks like `hook` in react
+
+2. `Async composable`
+
+```vue
+export const useFetch = async (url: string) => {
+  let data = null
+  let error = null
+
+  try {
+    const res = await fetch(url)
+    data = await res.json()
+  } catch(err) {
+    error = err
+  }
+  
+  return { data, error }
+} 
+```
+
+> [https://vuejs.org/guide/reusability/composables.html](https://vuejs.org/guide/reusability/composables.html)
 
 [⬆️ Back to top](#table-of-content)
