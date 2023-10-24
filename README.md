@@ -21,7 +21,7 @@
 
 ---
 
-### INSTALL VUEJS + TS + VITEJS
+### Install Vue + TS + Vite
 
 ```sh
 npm create vite my-app --template vue-ts
@@ -39,7 +39,7 @@ search vue devtools -> install it
 
 ---
 
-### CREATE A VUE APPLICATION
+### Create a Vue application
 
 1. **Create application**
 
@@ -76,7 +76,7 @@ const app = createApp(App).mount('#app')
 
 ---
 
-### TEMPLATE SYNTAX
+### Template syntax
 
 1. **Text Interpolation** (`Nội suy văn bản`)
 
@@ -308,7 +308,7 @@ const app = createApp(App).mount('#app')
 
 ---
 
-### EVENTS & METHODS
+### Event & Methods
 
 - We can use `v-on:click,...` or shorthand `@click, @submit,...`
 
@@ -405,7 +405,7 @@ const app = createApp(App).mount('#app')
 
 ---
 
-### REACTIVITY FUNDAMENTALS
+### Reactivity Fundalmental
 
 1. **Reactivity State  _ref()_**
 
@@ -605,8 +605,7 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
 
 ---
 
-### COMPUTED PROPERTIES
-
+### Computed Properties
 - **computed**: Help us can handle complex logic and maintain code too easily
 
 ```vue
@@ -663,7 +662,7 @@ const double = computed<number>(() => {
 
 ---
 
-### CLASS AND STYLE BINDINGS
+### Class & Style binding
 
 1. **Class Binding**
 
@@ -788,7 +787,7 @@ const double = computed<number>(() => {
 
 ---
 
-### LIST RENDERING
+### List rendering
 
 1. **v-for with array**
 
@@ -874,7 +873,7 @@ const double = computed<number>(() => {
 
 ---
 
-### WATCHES
+### Watches
 
 - Computed properties allow us to declaratively compute derived values. However, there are cases where we need to perform "side effects" in reaction to state changes - for example, mutating the DOM, or changing another piece of state based on the result of an async operation. (`Property computed được tính toán cho phép chúng ta tính toán các giá trị dẫn xuất một cách khai báo. Tuy nhiên, có những trường hợp chúng ta cần thực hiện "side effect" để phản ứng với các thay đổi trạng thái - ví dụ: thay đổi DOM hoặc thay đổi một phần trạng thái khác dựa trên kết quả của thao tác không đồng bộ.`)
 
@@ -958,7 +957,7 @@ watchEffect(async () => {
 
 ---
 
-### TEMPLATE REFS
+### Template Refs
 
 - We want to access to the underlying DOM elements. To achive this, you can use `ref`
 
@@ -994,11 +993,11 @@ watchEffect(async () => {
 
 ---
 
-### LICYCLE HOOKS
+### Licycle Hooks
 
 ---
 
-### REGISTRATION COMPONENT
+### Registeration Components
 
 1. **Global Registration**
 
@@ -1046,7 +1045,7 @@ app.component(
 
 ---
 
-### PROPS
+### Props
 
 1. **With SFC**
 
@@ -1138,7 +1137,7 @@ app.component(
 
 ---
 
-### EMITTING & LISTENING TO EVENTS
+### Emitting & Listenning Event
 
 1. **Emit & Listening to Events**
 
@@ -1210,7 +1209,7 @@ app.component(
 
 ---
 
-### DEEP UNDERSTAND ABOUT V-MODEL
+### Deep understand about `v-model`
 
 1. **Reuseable Input Component**
 
@@ -1313,7 +1312,7 @@ defineEmits(['update:firstName', 'update:lastName'])
 
 ---
 
-### SLOTS
+### Slots
 
 - In the some case, we may want to use pass a template fragment to a child component, and let the child component render the fragment within its own template. (`Trong một số trường hợp, chúng ta có thể muốn chuyển một đoạn mẫu cho một thành phần con và để thành phần con đó hiển thị đoạn đó trong mẫu của chính nó.`)
 
@@ -1451,3 +1450,66 @@ defineEmits(['update:firstName', 'update:lastName'])
 
 > [https://vuejs.org/guide/components/slots.html#scoped-slots](https://vuejs.org/guide/components/slots.html#scoped-slots)
 ![Slot component for children](./public/images/slots.png)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### Provide/ Inject
+
+1. `Provide`
+
+- Usually, when we need to pass data from the parent to a child component, we use props. However, imagine the case where we have a large component tree, and a deeply nested component needs something from a distant ancestor component. With only props, we would have to pass the same prop across the entire parent chain:
+
+```vue
+<script setup lang="ts">
+import { provide } from 'vue'
+
+provide(/* key */ 'message', /* value */ 'hello!')
+</script>
+```
+
+- You can pass an object includes function and ref value like this:
+
+```vue
+import { provide } from 'vue'
+const message: Ref<string> = ref('say hello')
+function say() {
+  message.value = 'how are you today?'
+}
+
+provide('message', {
+  message,
+  say
+})
+```
+
+2. `Inject`
+
+- To inject data provided by an ancestor component, use the `inject()` function:
+
+```vue
+<script>
+import { inject } from 'vue'
+const { message, say } = inject('message')
+</script>
+
+<template>
+  <div>
+    <p>{{ message }}</p>
+    <button @click="say">Say</button>
+  </div>
+</template>
+```
+
+- If you want to ensure data not change when data change, you need to use `readonly`
+```vue
+import { readonly, ref, provide, Ref } from 'vue'
+
+const count: Ref<number> = ref(0)
+provide('count', readonly(count))
+```
+
+> [https://vuejs.org/guide/components/provide-inject.html](https://vuejs.org/guide/components/provide-inject.html)
+
+[⬆️ Back to top](#table-of-content)
