@@ -1328,4 +1328,65 @@ defineEmits(['update:firstName', 'update:lastName'])
 </button>
 ```
 
+1. `Fallback Content`
+- There are a case very useful when you can specify fallback content for a slot, to be rendered only when no content is provided.
+```vue
+<button>
+  <slot>
+    Submit
+  </slot>
+</button>
+
+// use in another component
+<Button></Button>
+// <button>Submit</button>
+
+<Button>Add data</Button>
+// <button>Add data</button>
+```
+
+2. `Name Slots`
+- There are times when it's useful to have multiple slot outlets in a single component.
+```vue
+// layout BaseLayout
+<div class="container">
+  <header>
+    <!-- We want header content here -->
+  </header>
+  <main>
+    <!-- We want main content here -->
+  </main>
+  <footer>
+    <!-- We want footer content here -->
+  </footer>
+</div>
+```
+
+- You can apply a lot of different slot.
+```vue
+<BaseLayout>
+  <template v-slot:header>
+    <!-- content for the header slot -->
+  </template>
+  <template v-slot:main>
+    <!-- content for the main slot -->
+  </template>
+</BaseLayout>
+```
+
+3. `Dynamic Slots`
+
+```vue
+<base-layout>
+  <template v-slot:[dynamicSlotName]>
+    ...
+  </template>
+
+  <!-- with shorthand -->
+  <template #[dynamicSlotName]>
+    ...
+  </template>
+</base-layout>
+```
+
 ![Slot component for children](./public/images/slots.png)
