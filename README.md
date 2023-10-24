@@ -1389,4 +1389,65 @@ defineEmits(['update:firstName', 'update:lastName'])
 </base-layout>
 ```
 
+4. `Scoped Slots`
+
+- However, there are cases where it could be useful if a slot's content can make use of data from both the parent scope and the child scope. To achieve that, we need a way for the child to pass data to a slot when rendering it. (`Tuy nhiên, có những trường hợp có thể hữu ích nếu nội dung của một vị trí có thể sử dụng dữ liệu từ cả phạm vi cha và phạm vi con. Để đạt được điều đó, chúng ta cần một cách để trẻ truyền dữ liệu đến một vị trí khi hiển thị nó.`)
+
+- It means chnage data into the component include lots of slots. When the data is into the component changed, props outside also changed.
+
+```vue
+<div>
+  <slot :text="greetingMessage" :count="1"></slot>
+</div>
+
+//
+
+<MyComponent v-slot="slotProps">
+  {{ slotProps.text }} {{ slotProps.count }}
+</MyComponent>
+```
+
+- `Name Scoped Slot`: Named scoped slots work similarly - slot props are accessible as the value of the v-slot directive: v-slot:name="slotProps". When using the shorthand, it looks like this:
+```vue
+<MyComponent>
+  <template #header="headerProps">
+    {{ headerProps.name }}
+  </template>
+
+  // or
+  <template #header="{ message }">{{ message }}</template> // show hello here.
+
+  <template #default="defaultProps">
+    {{ defaultProps }}
+  </template>
+
+  <template #footer="footerProps">
+    {{ footerProps }}
+  </template>
+</MyComponent>
+
+//
+
+<slot name="header" message="hello"></slot>
+```
+
+- `Fancy List`: List item from the component encapsulate and you can use item data to use outside.
+```vue
+<BookList>
+  <template #item="{ name, subDescription }">
+    <h3>{{ name }}</h3>
+    <p>{{ subDescription }}</p>
+  </template>
+</BookList>
+
+//
+
+<div>
+  <div v-for="item in list" :key="item.id">
+    <slot name="item" :item="item"></slot>
+  </div>
+</div>
+```
+
+> [https://vuejs.org/guide/components/slots.html#scoped-slots](https://vuejs.org/guide/components/slots.html#scoped-slots)
 ![Slot component for children](./public/images/slots.png)
