@@ -20,7 +20,7 @@
   - [Slots](#slots)
   - [Provide & Inject](#provide--inject)
   - [Composables](#composables)
-  - [Vue form (Vee validate + Yup)](#vue-form)
+  - [Vue form (Vee validate + Yup)](#vue-form-vee-validate--yup)
 
 ---
 
