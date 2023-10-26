@@ -1702,3 +1702,47 @@ import { Form } from 'vee-validate'
 ```
 
 > [https://vee-validate.logaretm.com/v4/api/field](https://vee-validate.logaretm.com/v4/api/field)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### Vue Select Form (Multiselect)
+
+1. `Install`
+
+```sh
+yarn add @vueform/multiselect
+# or
+npm install @vueform/multiselect
+```
+
+2. `Setup`
+
+```vue
+<script setup lang='ts'>
+    import { Multiselect } from '@vueform/multiselect'
+    import { ref, Ref } from 'vue'
+
+    const value: Ref<string> = ref('')
+    const options: Ref<string[]> = ref([
+        'VN',
+        'EN',
+        'US'
+    ])
+</script>
+<template>
+    <Multiselect
+        mode="tags"
+        v-model="value"
+        :options="options"
+        :searchable="true"
+    />
+</template>
+```
+
+- `mode`: single, multiple, tags; `default: single`
+
+> [https://github.com/vueform/multiselect#readme](https://github.com/vueform/multiselect#readme)
+
+[⬆️ Back to top](#table-of-content)
