@@ -21,6 +21,7 @@
   - [Provide & Inject](#provide--inject)
   - [Composables](#composables)
   - [Vue form (Vee validate + Yup)](#vue-form-vee-validate--yup)
+  - [Component Element](#component-element)
 
 ---
 
@@ -1746,3 +1747,45 @@ npm install @vueform/multiselect
 > [https://github.com/vueform/multiselect#readme](https://github.com/vueform/multiselect#readme)
 
 [⬆️ Back to top](#table-of-content)
+
+---
+### Component Element
+
+- This is a `meta component` to render dynamic component or element.
+- It can determined by `:is` in `<component :is="component here" />`.
+
+```vue
+<script setup lang="ts">
+import ComponentOne from './components/ComponentOne.vue'
+</script>
+<template>
+  <component :is="ComponentOne" />
+</template>
+```
+
+- You can add validate to check and render component you want.
+
+```vue
+<script setup lang="ts">
+  import ComponentOne from './components/ComponentOne.vue'
+  import ComponentTwo from './components/ComponentTwo.vue'
+
+  const activeComponent = ref(1)
+</script>
+<template>
+  <component :is="activeComponent === 1 ? ComponentOne : ComponentTwo" />
+</template>
+```
+
+- But when use navtive HTML, it can't use `v-model` to dynamic created won't work.
+
+```vue
+<script>
+const input = ref('input')
+const inputVal = ref('')
+</script>
+<template>
+# it won't work when use v-model, is native HTML Element
+<component :is="input" v-model="inputVal" />
+</template>
+```
