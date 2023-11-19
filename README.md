@@ -1806,3 +1806,43 @@ const inputVal = ref('')
 <component :is="input" v-model="inputVal" />
 </template>
 ```
+
+---
+
+### Note code about real project
+
+- Don't change direct value props, because this is principle in vue. Props is readonly, don't change it.
+- Use form component:
+  - Should be use `form-model` in this component, don't declare `form-model` in parent component.
+
+- Use `v-model` to input field or custom `input field component`.
+
+```vue
+// input field
+<script setup lang='ts'>
+defineProps({
+  value: {
+    type: String,
+    required: true
+  }
+})
+defineEmits(['update:value'])
+</script>
+<template>
+<div>
+  <input :value="value" @input="e => $emit('update:value', e.target.value)" />
+</div>
+</template>
+
+// form component
+<script setup lang='ts'>
+import { InputField } from '...'
+const username = ref('')
+</script>
+
+<template>
+<form>
+  <InputField v-model:value="username" />
+</form>
+</template>
+```
