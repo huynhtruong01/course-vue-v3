@@ -1246,6 +1246,23 @@ app.component(
 
 > **_Note_**: Must be use `modelValue` according to `vue's principles`
 
+- We can use `value` instead of `modelValue`.
+
+```ts
+<script setup lang='ts'>
+defineProps({
+  value: {
+    type: String,
+    required: true,
+  }
+})
+defineEmits(['update:value'])
+</script>
+<template>
+  <button @click="$emit('update:value', 'click')">Click me</button>
+</template>
+```
+
 2. **v-model arguments**
 
 - By default, `v-model` on a component uses `modelValue` as the prop and `update:modelValue` as the event. We can modify these names passing an argument to v-model: (`Theo mặc định, v-model trên một thành phần sử dụng modelValue làm chỗ dựa và update:modelValue làm sự kiện. Chúng ta có thể sửa đổi những tên này bằng cách chuyển đối số sang v-model:`)
