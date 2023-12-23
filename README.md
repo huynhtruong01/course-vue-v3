@@ -1,27 +1,31 @@
 ## Table of Content
 
 - [Table of Content](#table-of-content)
-  - [INSTALL VUEJS + TS + VITEJS](#install-vuejs--ts--vitejs)
-  - [CREATE A VUE APPLICATION](#create-a-vue-application)
-  - [TEMPLATE SYNTAX](#template-syntax)
-  - [EVENTS \& METHODS](#events--methods)
-  - [REACTIVITY FUNDAMENTALS](#reactivity-fundamentals)
-  - [COMPUTED PROPERTIES](#computed-properties)
-  - [CLASS AND STYLE BINDINGS](#class-and-style-bindings)
-  - [CONDITION RENDERING](#condition-rendering)
-  - [LIST RENDERING](#list-rendering)
-  - [WATCHES](#watches)
-  - [TEMPLATE REFS](#template-refs)
-  - [LICYCLE HOOKS](#licycle-hooks)
-  - [REGISTRATION COMPONENT](#registration-component)
-  - [PROPS](#props)
-  - [EMITTING \& LISTENING TO EVENTS](#emitting--listening-to-events)
-  - [DEEP UNDERSTAND ABOUT V-MODEL](#deep-understand-about-v-model)
-  - [SLOTS](#slots)
+  - [Install Vue + TS + Vite](#install-vuejs--ts--vitejs)
+  - [Create a Vue application](#create-a-vue-application)
+  - [Template syntax](#template-syntax)
+  - [Event & Methods](#events--methods)
+  - [Reactivity Fuldamental](#reactivity-fundamentals)
+  - [Computed properties](#computed-properties)
+  - [Class & Style binding](#class-and-style-bindings)
+  - [Condition rerendering](#condition-rendering)
+  - [List reredering](#list-rendering)
+  - [Watches](#watches)
+  - [Template Refs](#template-refs)
+  - [Licycle Hooks](#licycle-hooks)
+  - [Registration Component](#registration-component)
+  - [Props](#props)
+  - [Emitting & Listening to events](#emitting--listening-to-events)
+  - [Deep understand v-model](#deep-understand-about-v-model)
+  - [Slots](#slots)
+  - [Provide & Inject](#provide--inject)
+  - [Composables](#composables)
+  - [Vue form (Vee validate + Yup)](#vue-form-vee-validate--yup)
+  - [Component Element](#component-element)
 
 ---
 
-### INSTALL VUEJS + TS + VITEJS
+### Install Vue + TS + Vite
 
 ```sh
 npm create vite my-app --template vue-ts
@@ -39,7 +43,7 @@ search vue devtools -> install it
 
 ---
 
-### CREATE A VUE APPLICATION
+### Create a Vue application
 
 1. **Create application**
 
@@ -76,7 +80,7 @@ const app = createApp(App).mount('#app')
 
 ---
 
-### TEMPLATE SYNTAX
+### Template syntax
 
 1. **Text Interpolation** (`Nội suy văn bản`)
 
@@ -308,7 +312,7 @@ const app = createApp(App).mount('#app')
 
 ---
 
-### EVENTS & METHODS
+### Event & Methods
 
 - We can use `v-on:click,...` or shorthand `@click, @submit,...`
 
@@ -405,7 +409,7 @@ const app = createApp(App).mount('#app')
 
 ---
 
-### REACTIVITY FUNDAMENTALS
+### Reactivity Fundalmental
 
 1. **Reactivity State  _ref()_**
 
@@ -594,15 +598,18 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
 | Access         | Accessed by `.value`                                       | Access direct into object                                     |
 | Nested objects | Nested objects are also wrapped with `ref` when accessed   | Nested objects are not wrapped with `reactive` when accessed  |
 | Use cases      | Used to track the state of a `single` variable or `object` | Used to track the state of an object with `nested properties` |
+| Reassigning data | Can access and update data (reassigned) | Can't reassigned new data |
+| Type | Ref<T> | Initial object (Interface) |
+| Watch | With primitives, watch can determines `.value` when this ref changed, but it isn't change with deep object and must be use `deep: true` in watch | `watch()` always perform a deep watch even we don't need to use `deep: true` |
 
 > **_Notion_**: Due to these limitations, we recommend using `ref()` as the primary API for declaring reactive state.
+> [https://dmitripavlutin.com/ref-reactive-differences-vue](https://dmitripavlutin.com/ref-reactive-differences-vue)
 
 [⬆️ Back to top](#table-of-content)
 
 ---
 
-### COMPUTED PROPERTIES
-
+### Computed Properties
 - **computed**: Help us can handle complex logic and maintain code too easily
 
 ```vue
@@ -659,7 +666,7 @@ const double = computed<number>(() => {
 
 ---
 
-### CLASS AND STYLE BINDINGS
+### Class & Style binding
 
 1. **Class Binding**
 
@@ -784,7 +791,7 @@ const double = computed<number>(() => {
 
 ---
 
-### LIST RENDERING
+### List rendering
 
 1. **v-for with array**
 
@@ -870,7 +877,7 @@ const double = computed<number>(() => {
 
 ---
 
-### WATCHES
+### Watches
 
 - Computed properties allow us to declaratively compute derived values. However, there are cases where we need to perform "side effects" in reaction to state changes - for example, mutating the DOM, or changing another piece of state based on the result of an async operation. (`Property computed được tính toán cho phép chúng ta tính toán các giá trị dẫn xuất một cách khai báo. Tuy nhiên, có những trường hợp chúng ta cần thực hiện "side effect" để phản ứng với các thay đổi trạng thái - ví dụ: thay đổi DOM hoặc thay đổi một phần trạng thái khác dựa trên kết quả của thao tác không đồng bộ.`)
 
@@ -954,7 +961,7 @@ watchEffect(async () => {
 
 ---
 
-### TEMPLATE REFS
+### Template Refs
 
 - We want to access to the underlying DOM elements. To achive this, you can use `ref`
 
@@ -990,11 +997,11 @@ watchEffect(async () => {
 
 ---
 
-### LICYCLE HOOKS
+### Licycle Hooks
 
 ---
 
-### REGISTRATION COMPONENT
+### Registeration Components
 
 1. **Global Registration**
 
@@ -1042,7 +1049,7 @@ app.component(
 
 ---
 
-### PROPS
+### Props
 
 1. **With SFC**
 
@@ -1134,7 +1141,7 @@ app.component(
 
 ---
 
-### EMITTING & LISTENING TO EVENTS
+### Emitting & Listenning Event
 
 1. **Emit & Listening to Events**
 
@@ -1206,7 +1213,7 @@ app.component(
 
 ---
 
-### DEEP UNDERSTAND ABOUT V-MODEL
+### Deep understand about `v-model`
 
 1. **Reuseable Input Component**
 
@@ -1238,6 +1245,23 @@ app.component(
 ```
 
 > **_Note_**: Must be use `modelValue` according to `vue's principles`
+
+- We can use `value` instead of `modelValue`.
+
+```ts
+<script setup lang='ts'>
+defineProps({
+  value: {
+    type: String,
+    required: true,
+  }
+})
+defineEmits(['update:value'])
+</script>
+<template>
+  <button @click="$emit('update:value', 'click')">Click me</button>
+</template>
+```
 
 2. **v-model arguments**
 
@@ -1309,7 +1333,7 @@ defineEmits(['update:firstName', 'update:lastName'])
 
 ---
 
-### SLOTS
+### Slots
 
 - In the some case, we may want to use pass a template fragment to a child component, and let the child component render the fragment within its own template. (`Trong một số trường hợp, chúng ta có thể muốn chuyển một đoạn mẫu cho một thành phần con và để thành phần con đó hiển thị đoạn đó trong mẫu của chính nó.`)
 
@@ -1324,4 +1348,501 @@ defineEmits(['update:firstName', 'update:lastName'])
 </button>
 ```
 
+1. `Fallback Content`
+- There are a case very useful when you can specify fallback content for a slot, to be rendered only when no content is provided.
+```vue
+<button>
+  <slot>
+    Submit
+  </slot>
+</button>
+
+// use in another component
+<Button></Button>
+// <button>Submit</button>
+
+<Button>Add data</Button>
+// <button>Add data</button>
+```
+
+2. `Name Slots`
+- There are times when it's useful to have multiple slot outlets in a single component.
+```vue
+// layout BaseLayout
+<div class="container">
+  <header>
+    <!-- We want header content here -->
+  </header>
+  <main>
+    <!-- We want main content here -->
+  </main>
+  <footer>
+    <!-- We want footer content here -->
+  </footer>
+</div>
+```
+
+- You can apply a lot of different slot.
+```vue
+<BaseLayout>
+  <template v-slot:header>
+    <!-- content for the header slot -->
+  </template>
+  <template v-slot:main>
+    <!-- content for the main slot -->
+  </template>
+</BaseLayout>
+```
+
+3. `Dynamic Slots`
+
+```vue
+<base-layout>
+  <template v-slot:[dynamicSlotName]>
+    ...
+  </template>
+
+  <!-- with shorthand -->
+  <template #[dynamicSlotName]>
+    ...
+  </template>
+</base-layout>
+```
+
+4. `Scoped Slots`
+
+- However, there are cases where it could be useful if a slot's content can make use of data from both the parent scope and the child scope. To achieve that, we need a way for the child to pass data to a slot when rendering it. (`Tuy nhiên, có những trường hợp có thể hữu ích nếu nội dung của một vị trí có thể sử dụng dữ liệu từ cả phạm vi cha và phạm vi con. Để đạt được điều đó, chúng ta cần một cách để trẻ truyền dữ liệu đến một vị trí khi hiển thị nó.`)
+
+- It means chnage data into the component include lots of slots. When the data is into the component changed, props outside also changed.
+
+```vue
+<div>
+  <slot :text="greetingMessage" :count="1"></slot>
+</div>
+
+//
+
+<MyComponent v-slot="slotProps">
+  {{ slotProps.text }} {{ slotProps.count }}
+</MyComponent>
+```
+
+- `Name Scoped Slot`: Named scoped slots work similarly - slot props are accessible as the value of the v-slot directive: v-slot:name="slotProps". When using the shorthand, it looks like this:
+```vue
+<MyComponent>
+  <template #header="headerProps">
+    {{ headerProps.name }}
+  </template>
+
+  // or
+  <template #header="{ message }">{{ message }}</template> // show hello here.
+
+  <template #default="defaultProps">
+    {{ defaultProps }}
+  </template>
+
+  <template #footer="footerProps">
+    {{ footerProps }}
+  </template>
+</MyComponent>
+
+//
+
+<slot name="header" message="hello"></slot>
+```
+
+- `Fancy List`: List item from the component encapsulate and you can use item data to use outside.
+```vue
+<BookList>
+  <template #item="{ name, subDescription }">
+    <h3>{{ name }}</h3>
+    <p>{{ subDescription }}</p>
+  </template>
+</BookList>
+
+//
+
+<div>
+  <div v-for="item in list" :key="item.id">
+    <slot name="item" :item="item"></slot>
+  </div>
+</div>
+```
+
+> [https://vuejs.org/guide/components/slots.html#scoped-slots](https://vuejs.org/guide/components/slots.html#scoped-slots)
 ![Slot component for children](./public/images/slots.png)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### Provide & Inject
+
+1. `Provide`
+
+- Usually, when we need to pass data from the parent to a child component, we use props. However, imagine the case where we have a large component tree, and a deeply nested component needs something from a distant ancestor component. With only props, we would have to pass the same prop across the entire parent chain:
+
+```vue
+<script setup lang="ts">
+import { provide } from 'vue'
+
+provide(/* key */ 'message', /* value */ 'hello!')
+</script>
+```
+
+- You can pass an object includes function and ref value like this:
+
+```vue
+import { provide } from 'vue'
+const message: Ref<string> = ref('say hello')
+function say() {
+  message.value = 'how are you today?'
+}
+
+provide('message', {
+  message,
+  say
+})
+```
+
+2. `Inject`
+
+- To inject data provided by an ancestor component, use the `inject()` function:
+
+```vue
+<script>
+import { inject } from 'vue'
+const { message, say } = inject('message')
+</script>
+
+<template>
+  <div>
+    <p>{{ message }}</p>
+    <button @click="say">Say</button>
+  </div>
+</template>
+```
+
+- If you want to ensure data not change when data change, you need to use `readonly`
+```vue
+import { readonly, ref, provide, Ref } from 'vue'
+
+const count: Ref<number> = ref(0)
+provide('count', readonly(count))
+```
+
+> [https://vuejs.org/guide/components/provide-inject.html](https://vuejs.org/guide/components/provide-inject.html)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### Composables
+
+1. `What is the composables`
+
+- When building frontend applications, we often need to reuse logic for common tasks. For example, we may need to format dates in many places, so we extract a reusable function for that. This formatter function encapsulates stateless logic: it takes some input and immediately returns expected output. There are many libraries out there for reusing stateless logic - for example lodash and date-fns, which you may have heard of.
+- It helps you can `reuse logic`, it looks like `hook` in react
+
+2. `Async composable`
+
+```vue
+export const useFetch = async (url: string) => {
+  let data = null
+  let error = null
+
+  try {
+    const res = await fetch(url)
+    data = await res.json()
+  } catch(err) {
+    error = err
+  }
+  
+  return { data, error }
+} 
+```
+
+> [https://vuejs.org/guide/reusability/composables.html](https://vuejs.org/guide/reusability/composables.html)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+### Vue Form (`Vee Validate + Yup`)
+
+1. `Install`
+
+```sh
+yarn add vee-validate yup
+# or
+npm i vee-validate yup
+```
+
+2. `Validate by useForm + schema yup`
+
+-   You need to import `yup` and `useForm`, then you can use it.
+
+```vue
+<script setup lang='ts'>
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+
+const schema = yup.object().shape({
+    name: yup.string().required('Please enter name'),
+    age: yup.number().required('Please enter age'),
+    bio: yup.string()
+})
+
+const { handleReset, handleSubmit, meta, errors, isSubmitting } = useForm({
+    validationSchema: schema,
+    initialValues: {
+        name: '',
+        age: 0,
+        bio: ''
+    }
+})
+
+const handleSubmit = handleSubmit((values: any) => {
+    console.log(values)
+    handleReset()
+})
+</script>
+
+<template>
+    <form>
+        <div>
+            <input type='text' name='name' />
+            <p>{{ errors.value.name || '' }}</p>   
+        </div>
+        <div>
+            <input type='text' name='age' />
+            <p>{{ errors.value.age || '' }}</p>   
+        </div> 
+        <div>
+            <input type='text' name='bio' />
+            <p>{{ errors.value.bio || '' }}</p>   
+        </div>
+        <button type="submit" :disabled="isSubmitting || !meta.valid">Submit</button>
+    </form>
+</template>
+```
+
+- `Set field value`: `setFieldValue(key, value)`
+
+```vue
+<script>
+const { setFieldValue } = useForm()
+
+watch(undefined, () => {
+    setFieldValue('name', ...)
+    setFieldValue('age', ...)
+    setFieldValue('bio', ...)
+})
+</script>
+```
+
+- You can set multiple values: `setValues({ key1: value1, key2: value2 })`
+
+```vue
+<script>
+const { setValues } = useForm()
+
+setValues({
+    name: ...,
+    age: ...,
+    bio: ...
+})
+</script>
+```
+
+- `meta`: touched, dirty, valid, pending, initialValues
+
+> [https://vee-validate.logaretm.com/v4/api/use-form](https://vee-validate.logaretm.com/v4/api/use-form)
+
+3. `Divide each field component by useField()`
+
+```vue
+<script setup lang='ts'>
+import { useField } from 'vee-validate'
+import { defineProps } from 'vue'
+
+const { name } = defineProps<{
+    name: string
+}>()
+const { value, errorMessage } = useField<string>(name)
+</script>
+
+<template>
+    <div>
+        <input v-model="value" type='text' :name="name" />
+        <p>{{ errorMessage }}</p>
+    </div>
+</template>
+```
+
+> [https://vee-validate.logaretm.com/v4/api/use-field](https://vee-validate.logaretm.com/v4/api/use-field)
+
+4. `Hooks`
+
+- `<Form />`: is a simple HTML form but with a few adjustments, by default `form` HTML.
+
+```vue
+<script setup lang='ts'>
+import { Form } from 'vee-validate'
+</script>
+
+<template>
+    <Form v-slot="{ errors, isSubmitting, meta, values, setFieldValue, handleSubmit, handleReset, ... }"></Form>
+</template>
+```
+
+- `props`: as, validationSchema, initialValues, initialTouched, validateOnMount, keepValues, initialErrors.
+
+> [https://vee-validate.logaretm.com/v4/api/form](https://vee-validate.logaretm.com/v4/api/form)
+
+- `<Field />`: it is extremely flexible component that makes rendering input field easy and intuitive.
+
+```vue
+<template>
+    <Field name="name" as="select">
+        <option>VN</option>
+        <option>US</option>
+        <option>EN</option>
+    </Field>
+</template>
+```
+
+- Use `v-model` in `Field`
+
+```vue
+<Field v-model="name" type="text" name="name" v-slot="{ field }">
+  <input v-bind="field">
+</Field>
+```
+
+> [https://vee-validate.logaretm.com/v4/api/field](https://vee-validate.logaretm.com/v4/api/field)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### Vue Select Form (Multiselect)
+
+1. `Install`
+
+```sh
+yarn add @vueform/multiselect
+# or
+npm install @vueform/multiselect
+```
+
+2. `Setup`
+
+```vue
+<script setup lang='ts'>
+    import { Multiselect } from '@vueform/multiselect'
+    import { ref, Ref } from 'vue'
+
+    const value: Ref<string> = ref('')
+    const options: Ref<string[]> = ref([
+        'VN',
+        'EN',
+        'US'
+    ])
+</script>
+<template>
+    <Multiselect
+        mode="tags"
+        v-model="value"
+        :options="options"
+        :searchable="true"
+    />
+</template>
+```
+
+- `mode`: single, multiple, tags; `default: single`
+
+> [https://github.com/vueform/multiselect#readme](https://github.com/vueform/multiselect#readme)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+### Component Element
+
+- This is a `meta component` to render dynamic component or element.
+- It can determined by `:is` in `<component :is="component here" />`.
+
+```vue
+<script setup lang="ts">
+import ComponentOne from './components/ComponentOne.vue'
+</script>
+<template>
+  <component :is="ComponentOne" />
+</template>
+```
+
+- You can add validate to check and render component you want.
+
+```vue
+<script setup lang="ts">
+  import ComponentOne from './components/ComponentOne.vue'
+  import ComponentTwo from './components/ComponentTwo.vue'
+
+  const activeComponent = ref(1)
+</script>
+<template>
+  <component :is="activeComponent === 1 ? ComponentOne : ComponentTwo" />
+</template>
+```
+
+- But when use navtive HTML, it can't use `v-model` to dynamic created won't work.
+
+```vue
+<script>
+const input = ref('input')
+const inputVal = ref('')
+</script>
+<template>
+# it won't work when use v-model, is native HTML Element
+<component :is="input" v-model="inputVal" />
+</template>
+```
+
+---
+
+### Note code about real project
+
+- Don't change direct value props, because this is principle in vue. Props is readonly, don't change it.
+- Use form component:
+  - Should be use `form-model` in this component, don't declare `form-model` in parent component.
+
+- Use `v-model` to input field or custom `input field component`.
+
+```vue
+// input field
+<script setup lang='ts'>
+defineProps({
+  value: {
+    type: String,
+    required: true
+  }
+})
+defineEmits(['update:value'])
+</script>
+<template>
+<div>
+  <input :value="value" @input="e => $emit('update:value', e.target.value)" />
+</div>
+</template>
+
+// form component
+<script setup lang='ts'>
+import { InputField } from '...'
+const username = ref('')
+</script>
+
+<template>
+<form>
+  <InputField v-model:value="username" />
+</form>
+</template>
+```
