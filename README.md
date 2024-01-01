@@ -1,27 +1,30 @@
 ## Table of Content
 
 - [Table of Content](#table-of-content)
-  - [Install Vue + TS + Vite](#install-vuejs--ts--vitejs)
+  - [Install Vue + TS + Vite](#install-vue--ts--vite)
   - [Create a Vue application](#create-a-vue-application)
   - [Template syntax](#template-syntax)
-  - [Event & Methods](#events--methods)
-  - [Reactivity Fuldamental](#reactivity-fundamentals)
-  - [Computed properties](#computed-properties)
-  - [Class & Style binding](#class-and-style-bindings)
-  - [Condition rerendering](#condition-rendering)
-  - [List reredering](#list-rendering)
+  - [Event \& Methods](#event--methods)
+  - [Reactivity Fundalmental](#reactivity-fundalmental)
+  - [Computed Properties](#computed-properties)
+  - [Class \& Style binding](#class--style-binding)
+  - [Condition Rendering](#condition-rendering)
+  - [List rendering](#list-rendering)
   - [Watches](#watches)
   - [Template Refs](#template-refs)
   - [Licycle Hooks](#licycle-hooks)
-  - [Registration Component](#registration-component)
+  - [Registeration Components](#registeration-components)
   - [Props](#props)
-  - [Emitting & Listening to events](#emitting--listening-to-events)
-  - [Deep understand v-model](#deep-understand-about-v-model)
+  - [Emitting \& Listenning Event](#emitting--listenning-event)
+  - [Deep understand about `v-model`](#deep-understand-about-v-model)
   - [Slots](#slots)
-  - [Provide & Inject](#provide--inject)
+  - [Provide \& Inject](#provide--inject)
   - [Composables](#composables)
-  - [Vue form (Vee validate + Yup)](#vue-form-vee-validate--yup)
+  - [Vue Form (`Vee Validate + Yup`)](#vue-form-vee-validate--yup)
+  - [Vue Select Form (Multiselect)](#vue-select-form-multiselect)
   - [Component Element](#component-element)
+  - [Note code about real project](#note-code-about-real-project)
+  - [How to fix `vue/multi-word-component-names`](#how-to-fix-vuemulti-word-component-names)
 
 ---
 
@@ -591,16 +594,16 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
 
 3. **The different between _ref_ and _reactive_**
 
-|                | **_ref_**                                                  | **_reactive_**                                                |
-| -------------- | ---------------------------------------------------------- | ------------------------------------------------------------- |
-| Usage          | Declare the reactive state for primitives and object       | Only declare the reactive state object                        |
-| Initialization | Can be initialized with any JS primitives and object       | Only can be initialized object                                |
-| Access         | Accessed by `.value`                                       | Access direct into object                                     |
-| Nested objects | Nested objects are also wrapped with `ref` when accessed   | Nested objects are not wrapped with `reactive` when accessed  |
-| Use cases      | Used to track the state of a `single` variable or `object` | Used to track the state of an object with `nested properties` |
-| Reassigning data | Can access and update data (reassigned) | Can't reassigned new data |
-| Type | Ref<T> | Initial object (Interface) |
-| Watch | With primitives, watch can determines `.value` when this ref changed, but it isn't change with deep object and must be use `deep: true` in watch | `watch()` always perform a deep watch even we don't need to use `deep: true` |
+|                  | **_ref_**                                                                                                                                        | **_reactive_**                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| Usage            | Declare the reactive state for primitives and object                                                                                             | Only declare the reactive state object                                       |
+| Initialization   | Can be initialized with any JS primitives and object                                                                                             | Only can be initialized object                                               |
+| Access           | Accessed by `.value`                                                                                                                             | Access direct into object                                                    |
+| Nested objects   | Nested objects are also wrapped with `ref` when accessed                                                                                         | Nested objects are not wrapped with `reactive` when accessed                 |
+| Use cases        | Used to track the state of a `single` variable or `object`                                                                                       | Used to track the state of an object with `nested properties`                |
+| Reassigning data | Can access and update data (reassigned)                                                                                                          | Can't reassigned new data                                                    |
+| Type             | Ref<T>                                                                                                                                           | Initial object (Interface)                                                   |
+| Watch            | With primitives, watch can determines `.value` when this ref changed, but it isn't change with deep object and must be use `deep: true` in watch | `watch()` always perform a deep watch even we don't need to use `deep: true` |
 
 > **_Notion_**: Due to these limitations, we recommend using `ref()` as the primary API for declaring reactive state.
 > [https://dmitripavlutin.com/ref-reactive-differences-vue](https://dmitripavlutin.com/ref-reactive-differences-vue)
@@ -780,7 +783,7 @@ const double = computed<number>(() => {
 
 ---
 
-### CONDITION RENDERING
+### Condition Rendering
 
 > So prefer `v-show` if you need to toggle something very often, and prefer `v-if` if the condition is unlikely to change at runtime. (`Vì vậy, hãy ưu tiên v-show nếu bạn cần chuyển đổi thứ gì đó thường xuyên và ưu tiên v-if nếu điều kiện khó có thể thay đổi khi chạy.`)
 > Because `v-if` has higher toggle costs while `v-show` has higher initial render costs. (`v-if có chi phí chuyển đổi cao hơn trong khi v-show có chi phí hiển thị ban đầu cao hơn. Hay nói cách là v-if ảnh hưởng đến vấn đề hiệu suất hơn v-show`)
@@ -1248,7 +1251,7 @@ app.component(
 
 - We can use `value` instead of `modelValue`.
 
-```ts
+```vue
 <script setup lang='ts'>
 defineProps({
   value: {
@@ -1420,8 +1423,6 @@ defineEmits(['update:firstName', 'update:lastName'])
   <slot :text="greetingMessage" :count="1"></slot>
 </div>
 
-//
-
 <MyComponent v-slot="slotProps">
   {{ slotProps.text }} {{ slotProps.count }}
 </MyComponent>
@@ -1435,6 +1436,7 @@ defineEmits(['update:firstName', 'update:lastName'])
   </template>
 
   // or
+
   <template #header="{ message }">{{ message }}</template> // show hello here.
 
   <template #default="defaultProps">
@@ -1445,8 +1447,6 @@ defineEmits(['update:firstName', 'update:lastName'])
     {{ footerProps }}
   </template>
 </MyComponent>
-
-//
 
 <slot name="header" message="hello"></slot>
 ```
@@ -1802,10 +1802,12 @@ const input = ref('input')
 const inputVal = ref('')
 </script>
 <template>
-# it won't work when use v-model, is native HTML Element
+<!-- it won't work when use v-model, is native HTML Element -->
 <component :is="input" v-model="inputVal" />
 </template>
 ```
+
+[⬆️ Back to top](#table-of-content)
 
 ---
 
@@ -1845,4 +1847,25 @@ const username = ref('')
   <InputField v-model:value="username" />
 </form>
 </template>
+```
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
+### How to fix `vue/multi-word-component-names`
+
+- You can see detail the reason to appear error of `eslint`.
+
+> [https://eslint.vuejs.org/rules/multi-word-component-names.html](https://eslint.vuejs.org/rules/multi-word-component-names.html)
+
+```ts
+// .eslintrc.cjs
+// turn off check `multi-word-component-names`
+module.exports = {
+    root: true,
+    rules: {
+        "vue/multi-word-component-names": "off"
+    }
+}
 ```
