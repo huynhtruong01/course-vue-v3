@@ -20,6 +20,7 @@
   - [Slots](#slots)
   - [Provide \& Inject](#provide--inject)
   - [Composables](#composables)
+  - [Fallthrough Attributes (`attrs`)](#fallthrough-attributes-attrs)
   - [Vue Form (`Vee Validate + Yup`)](#vue-form-vee-validate--yup)
   - [Vue Select Form (Multiselect)](#vue-select-form-multiselect)
   - [Component Element](#component-element)
@@ -1567,6 +1568,34 @@ export const useFetch = async (url: string) => {
 [⬆️ Back to top](#table-of-content)
 
 ---
+
+### Fallthrough Attributes (`attrs`)
+
+```vue
+// EnableInput.vue
+
+<template>
+<div>
+    <label>{{ label }}</label>
+    <input v-bind="$attrs" />
+</div>
+</template>
+<script setup lang="ts">
+defineProps({
+    label: {
+        type: String,
+        required: true
+    }
+})
+</script>
+```
+
+> [https://vuejs.org/guide/components/attrs](https://vuejs.org/guide/components/attrs)
+
+[⬆️ Back to top](#table-of-content)
+
+---
+
 ### Vue Form (`Vee Validate + Yup`)
 
 1. `Install`
